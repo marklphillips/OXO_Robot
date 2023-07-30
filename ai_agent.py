@@ -1,18 +1,19 @@
 import math
 import random
 import time
+
+from agent_base import Agent_Base
 from game import Game
 
-class AI_Agent:
+class AI_Agent(Agent_Base):
 # this is an implementation of the classic Minimax algorithm with alpha-beta pruning
-#  
+#   
     def __init__(self, game=Game(), max_depth=4):
+
+        super().__init__(game)
 
         # number of moves to look ahead
         self.max_depth = max_depth
-
-        # reference to the game board
-        self.game = game
 
     def alpha_beta(self, maximizing_player=True, depth=0.0, alpha=-math.inf, beta=math.inf):
 
@@ -64,16 +65,18 @@ class AI_Agent:
 
         return (best_value, px, py)
 
-    def next_move(self):
-
-        # check if board is empty, and randomly select opening move
+    def next_move(self):        
         if self.game.move_count == 0:
+            # if board is empty, randomly select opening move from best options
             (px, py) = self.game.OPENING_MOVES[random.randint(0, 3)]
         else:
-            start = time.time()
+            # board not empty, run algorithm to find next move
+            start_time = time.time()
             (_, px, py) = self.alpha_beta(maximizing_player=True)
-            end = time.time()
-            print('Evaluation time: {}s'.format(round(end - start, 7)))
-        
+            evalulation_time = time.time() - start_time
+
+        # play move
         self.game.move(px, py)
+
+        # return move in case it is required for other useage
         return (px, py)

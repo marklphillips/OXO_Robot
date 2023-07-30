@@ -1,9 +1,8 @@
-from  ev3dev2.sensor.lego import ColorSensor
 class Game:
-    def __init__(self):
-        self.CROSS = ColorSensor.COLOR_RED
-        self.NOUGHT = ColorSensor.COLOR_BLUE
-        self.EMPTY = ColorSensor.COLOR_NOCOLOR
+    def __init__(self, cross_symbol = "X", nought_symbol = "O", empty_symbol = " "):
+        self.CROSS = cross_symbol
+        self.NOUGHT = nought_symbol
+        self.EMPTY = empty_symbol
         self.DRAW = "Draw!"
         self.GAMEBOARD_SIZE = 3
         self.OPENING_MOVES = [(0, 0), (0, 2), (2, 0), (2, 2)]
@@ -24,6 +23,7 @@ class Game:
     def draw_board(self):
         for i in range(0, 3):
             for j in range(0, 3):
+                
                 print('{}|'.format(self.current_state[i][j]), end=" ")
             print()
         print()
@@ -65,7 +65,9 @@ class Game:
         return self.DRAW
 
     def move(self, x, y):
-
+        # play the move on the gameboard
         self.current_state[x][y] = self.current_player
-        self.current_player = self.flip_player[self.current_player]
         self.move_count += 1
+
+        # flip to next player, ready for next turn
+        self.current_player = self.flip_player[self.current_player]
