@@ -1,4 +1,6 @@
 # OXO_Robot
-OXO Robot using Lego Mindstorms EV3 and Artificial Intelligence Minimax algorithm 
+OXO Robot using Artificial Intelligence Minimax algorithm with alpha/beta pruning
 
-user_interface.py is the program entry point
+This simplified version allows the human player to enter moves via console row,col input.
+
+main.py is the program entry point
